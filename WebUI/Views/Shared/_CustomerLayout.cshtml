@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <partial name="~/Views/Shared/CustomerPartialViewComponents/_HeadComponentView.cshtml" />
+</head>
+<body>
+    <!-- Navigation-->
+    <partial name="~/Views/Shared/CustomerPartialViewComponents/_NavigationComponentView.cshtml" />
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Shop in style</h1>
+                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+            </div>
+        </div>
+    </header>
+    @RenderBody();
+    <!-- Footer-->
+    <partial name="~/Views/Shared/CustomerPartialViewComponents/_FooterComponentView.cshtml" />
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="~/startbootstrap-shop-homepage-gh-pages/js/scripts.js"></script>
+</body>
+</html>

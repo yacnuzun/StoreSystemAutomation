@@ -1,8 +1,126 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+        Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Section-->
+<section class="py-5">
+    @*<div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-5">
+                <div class="card" id="i" onmouseover="büyült()" onmouseout="küçült()" style="width: 300;" >
+                    <img class="card-img-top" src="~/startbootstrap-shop-homepage-gh-pages/Img/15.43.54-08.14.2022-9d31de29-290a-4f21-8938-9e08a788d599.jpg" width=300 alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                    </div>
+                </div>
+                <div class="card" id="i" onmouseover="büyült()" onmouseout="küçült()" style="width: 300;">
+                    <img class="card-img-top" src="~/startbootstrap-shop-homepage-gh-pages/Img/15.43.54-08.14.2022-9d31de29-290a-4f21-8938-9e08a788d599.jpg" width=300 alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                    </div>
+                </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <div class="row">
+        <div class="col-sm-4" id="a" >
+            <div class="card">
+                <div class="card-body" onmouseover="büyült()" onmouseout="küçült()">
+                    <img id="i" src="~/startbootstrap-shop-homepage-gh-pages/Img/15.43.54-08.14.2022-9d31de29-290a-4f21-8938-9e08a788d599.jpg" width="100" />
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4" id="ad" onmouseover="büyült()" onmouseout="küçült()">
+            <div class="card">
+                <div class="card-body">
+                    <img id="is" src="~/startbootstrap-shop-homepage-gh-pages/Img/Yogi.jpg" width="100" />
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var widhtvalue = 4;
+    var widhtvalueforimg = 100;
+
+    var degistir = 1;
+    var degistirforimg = 2;
+
+    var temizle = 0;
+    function küçült() {
+        clearInterval(temizle);
+        temizle = setInterval(azalt, 1);
+
+    }
+        function büyült() {
+            clearInterval(temizle);
+            temizle = setInterval(arttır, 1);
+        }
+
+
+    function arttır() {
+        if (widhtvalue < 6 || widhtvalueforimg<200) {
+            if (widhtvalue < 6) {
+                widhtvalue = widhtvalue + degistir;
+                $("#ad").attr('class', 'col-sm-' + widhtvalue.toString());
+            }
+            widhtvalueforimg =widhtvalueforimg+degistirforimg;
+            $("#is").attr('width', widhtvalueforimg);
+
+        }
+        else {
+            clearInterval(temizle);
+        }
+    }
+    function azalt() {
+        if (widhtvalue > 4 || widhtvalueforimg>100) {
+            if (widhtvalue > 4){
+            widhtvalue = widhtvalue - degistir;
+            $("#ad").attr('class', 'col-sm-' + widhtvalue.toString());
+            }
+            widhtvalueforimg = widhtvalueforimg - degistirforimg;
+            $("#is").attr('width', widhtvalueforimg);
+
+        }
+        else {
+            clearInterval(temizle);
+            clearInterval(temizle);
+        }
+    }
+    $(document).ready(function(){
+    $.ajax({
+            url: "https://localhost:7233/api/ProductImages/getall",
+            type: "GET",
+            crossDomain: true,
+            dataType: "json",
+            success: function (response) {
+                var resp = JSON.parse(response)
+                alert(resp.status);
+            },
+            error: function (xhr, status) {
+                alert("error");
+            }
+        });
+    })
+</script>

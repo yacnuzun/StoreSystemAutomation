@@ -10,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IProductService,ProductManager>();
 builder.Services.AddSingleton<IProductDal,EfProductDal>();
+builder.Services.AddCors(options =>
+options.AddDefaultPolicy(builder =>
+builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())
+);
 
 builder.Services.AddSingleton<IProductImageDal, EfProductImageDal>();
 builder.Services.AddSingleton<IProductImageService, ProductImageManager>();
@@ -28,6 +32,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
