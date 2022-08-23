@@ -2,9 +2,11 @@
 using Entity.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace WebAPI.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class ProductImagesController : ControllerBase
@@ -17,15 +19,15 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll()
+        public JsonResult GetAll()
         {
             var result = _productImageService.GetAll();
             if (!result.Success)
             {
-                return BadRequest(result);
+                return new JsonResult(result);
             }
-            
-            return Ok(result);
+            var jsonImage=JsonConvert.SerializeObject(result);
+            return new JsonResult(jsonImage);
         }
         [HttpGet("get")]
         public IActionResult Get(int id)
