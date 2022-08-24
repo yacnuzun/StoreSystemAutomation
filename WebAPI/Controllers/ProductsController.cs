@@ -35,6 +35,16 @@ namespace WebAPI.Controllers
             }
             return Ok(result);
         }
+        [HttpGet("getproductdetail")]
+        public JsonResult GetProductDetail(int id)
+        {
+            var result = _productService.GetProductDetails(id);
+            if (!result.Success)
+            {
+                return new JsonResult(result.Message);
+            }
+            return new JsonResult(result);
+        }
         [HttpPost("add")]
         public IActionResult Add(Product product)
         {

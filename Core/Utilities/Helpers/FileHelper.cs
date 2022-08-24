@@ -11,11 +11,12 @@ namespace Core.Utilities.Helpers
 {
     public class FileHelper
     {
-        static string uploadPath = Environment.CurrentDirectory + @"\wwwroot\Image\";
+        static string uploadPath = @"C:\Users\yacnu\source\repos\StoreSystemAutomation\WebUI\wwwroot\startbootstrap-shop-homepage-gh-pages\Img\";
 
 
         public static string Add(IFormFile file)
         {
+            string imgPath = "startbootstrap-shop-homepage-gh-pages/Img/";
             var sourcepath = Path.GetTempFileName();
             if (file.Length > 0)
             {
@@ -26,7 +27,7 @@ namespace Core.Utilities.Helpers
             }
             var result = newPath(file);
             File.Move(sourcepath, uploadPath + result);
-            return result;
+            return imgPath+result;
         }
         public static IResult Delete(string path)
         {

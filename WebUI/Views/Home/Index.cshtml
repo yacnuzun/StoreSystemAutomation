@@ -9,11 +9,6 @@
 <section class="py-5">
     
     <div class="row">
-        <div class="col-sm-4 cardCloumn" id="0" >
-            <div class="card" id="at">
-                
-            </div>
-        </div>
     </div>
 </section>
 <script>
@@ -30,12 +25,21 @@
                 console.log(resp.Data);//bu şekilde yazınca çekiyor.
                 $.each(resp.Data, function (key, value){
                     divId = divId + 1;
-                    divId = $(".cardCloumn").attr("id");
-                document.getElementById("at").innerHTML="<div class=\"card-body\" onmouseover=\"büyült()\" onmouseout=\"küçült()\"\>"+
-                        "<img id=\""+value.Id.toString()+"\" src=\""+value.ImagePath+"\" width=\"100\" />"+
-                    "<p class=\"card-text\">With supporting text below as a natural lead-in to additional content.</p>"+
-                    "<a href=\"#\" class=\"btn btn-primary\">Go somewhere</a>"+
-                "</div>"
+                    const newDiv=document.createElement("div");
+                    newDiv.classList.add("col-sm-4");
+                    newDiv.classList.add("cardCloumn");
+                    newDiv.setAttribute("width",100);
+                    newDiv.setAttribute("id",divId.toString());
+                    $(".row").append(newDiv);
+                newDiv.innerHTML=
+                        "<div class=\"card h-100\" id=\"at\"  > " +
+                        "<div class=\"card-body\" onmouseover=\"büyült(" + divId.toString() + "," + value.Id.toString() + ")\" onmouseout=\"küçült("+ divId.toString() + ", " + value.Id.toString() +")\"\>" +
+                        "<img class=\"w-30\" id=\"" + value.Id.toString() + "\" src=\"" + value.ImagePath + "\"  />" +
+                        "<p class=\"card-text\">With supporting text below as a natural lead-in to additional content.</p>"+
+                        "<a href=\"Home/Detail/"+value.Id+" \" class=\"btn btn-primary\">Detay</a>"+
+                        "</div>"+
+                        "</div>" 
+
                 })
             },
             error: function (xhr, status) {
@@ -46,7 +50,7 @@
 
 
     var widhtvalue = 4;
-    var widhtvalueforimg = 100;
+    var widhtvalueforimg = 30;
 
     var degistir = 1;
     var degistirforimg = 2;
@@ -55,21 +59,19 @@
     var divId;
 
     var temizle = 0;
-    function küçült() {
+    function küçült(imgId, divId) {
         clearInterval(temizle);
-        temizle = setInterval(azalt, 1);
+        temizle = setInterval(azalt(imgId, divId), 1);
 
     }
-    function büyült() {
+    function büyült(imgId,divId) {
         clearInterval(temizle);
-        temizle = setInterval(arttır, 1);
+        temizle = setInterval(arttır(imgId,divId), 1);
     }
 
 
-    function arttır() {
-        divId = $(".cardCloumn").attr("id");
-        imgId = $(".card-body").children("img").attr("id");
-        if (widhtvalue < 6 || widhtvalueforimg < 200) {
+    function arttır(imgId, divId) {
+        if (widhtvalue < 6 || widhtvalueforimg < 60) {
             if (widhtvalue < 6) {
                 widhtvalue = widhtvalue + degistir;
                 $("#" + divId + "").attr('class', 'col-sm-' + widhtvalue.toString());
@@ -82,10 +84,8 @@
             clearInterval(temizle);
         }
     }
-    function azalt() {
-        imgId = $(".card-body").children("img").attr("id");
-        divId = $(".cardCloumn").attr("id");
-        if (widhtvalue > 4 || widhtvalueforimg > 100) {
+    function azalt(imgId, divId) {
+        if (widhtvalue > 4 || widhtvalueforimg > 30) {
             if (widhtvalue > 4) {
                 widhtvalue = widhtvalue - degistir;
                 $("#" + divId + "").attr('class', 'col-sm-' + widhtvalue.toString());

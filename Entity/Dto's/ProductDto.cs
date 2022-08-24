@@ -1,16 +1,16 @@
-﻿using Core.Entities.Entity;
+﻿using Core.Entities.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Concrete
+namespace Entity.Dto_s
 {
-    public class Product:IEntity
+    public class ProductDto:IDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public string Picture { get; set; }
+        public string ProductName { get; set; }
         public int Price { get; set; }
         public string Description { get; set; }
     }

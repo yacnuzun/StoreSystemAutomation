@@ -18,8 +18,9 @@ namespace WebUI.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Detail(int id)
         {
+            ViewBag.Id= id;
             return View();
         }
 
