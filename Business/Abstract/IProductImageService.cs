@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entity.Concrete;
+using Entity.Dto_s;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace Business.Abstract
     public interface IProductImageService
     {
         IDataResult<List<ProductImage>> GetAll();
+        IDataResult<List<ProductImageDto>> GetProductsDetail();
+
         IDataResult<ProductImage> Get(int id);
         IDataResult<List<ProductImage>> GetByProductId(int id);
         IResult Add(IFormFile file,ProductImage productImage);

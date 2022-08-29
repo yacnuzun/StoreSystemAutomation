@@ -3,6 +3,7 @@ using Core.Utilities.Helpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concrete;
+using Entity.Dto_s;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,11 @@ namespace Business.Concrete
         public IDataResult<List<ProductImage>> GetByProductId(int id)
         {
             return new SuccessDataResult<List<ProductImage>>(_productImage.GetAll(p => p.ProductId == id));
+        }
+
+        public IDataResult<List<ProductImageDto>> GetProductsDetail()
+        {
+            return new SuccessDataResult<List<ProductImageDto>>(_productImage.GetProductDetails());
         }
 
         public IResult Update(IFormFile file, ProductImage productImage)

@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public JsonResult GetAll()
         {
-            var result = _productImageService.GetAll();
+            var result = _productImageService.GetProductsDetail();
             if (!result.Success)
             {
                 return new JsonResult(result);

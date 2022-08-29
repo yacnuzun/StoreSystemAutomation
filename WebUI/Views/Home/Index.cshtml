@@ -32,8 +32,8 @@
                 newDiv.innerHTML=
                         "<div class=\"card h-100\" id=\"at\"  > " +
                         "<div class=\"card-body\" onmouseover=\"büyült(" + divId.toString() + "," + value.Id.toString() + ")\" onmouseout=\"küçült("+ divId.toString() + ", " + value.Id.toString() +")\"\>" +
-                        "<img class=\"w-30\" id=\"" + value.Id.toString() + "\" src=\"" + "/Img/"+value.ImagePath.replace(" ","") + "\"  />" +
-                        "<p class=\"card-text\">With supporting text below as a natural lead-in to additional content.</p>"+
+                        "<img class=\"w-30\" id=\"" + value.Id.toString() + "\" src=\"" + "/Img/"+value.Picture.replace(" ","") + "\"  />" +
+                        "<p class=\"card-text\">" + value.Description + "</p>" +
                         "<a href=\"Home/Detail/"+value.Id+" \" class=\"btn btn-primary\">Detay</a>"+
                         "</div>"+
                         "</div>" 
