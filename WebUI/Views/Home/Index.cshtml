@@ -7,7 +7,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Section-->
 <section class="py-5">
-    
     <div class="row">
     </div>
 </section>
@@ -22,25 +21,25 @@
             success: function (response) {
                 var divId=0;
                 var resp = JSON.parse(response)
-                console.log(resp.Data);//bu şekilde yazınca çekiyor.
+                console.log(resp.Data);
                 $.each(resp.Data, function (key, value){
                     divId = divId + 1;
                     const newDiv=document.createElement("div");
                     newDiv.classList.add("col-sm-4");
                     newDiv.classList.add("cardCloumn");
-                    newDiv.setAttribute("width",100);
                     newDiv.setAttribute("id",divId.toString());
                     $(".row").append(newDiv);
                 newDiv.innerHTML=
                         "<div class=\"card h-100\" id=\"at\"  > " +
                         "<div class=\"card-body\" onmouseover=\"büyült(" + divId.toString() + "," + value.Id.toString() + ")\" onmouseout=\"küçült("+ divId.toString() + ", " + value.Id.toString() +")\"\>" +
-                        "<img class=\"w-30\" id=\"" + value.Id.toString() + "\" src=\"" + value.ImagePath + "\"  />" +
+                        "<img class=\"w-30\" id=\"" + value.Id.toString() + "\" src=\"" + "/Img/"+value.ImagePath.replace(" ","") + "\"  />" +
                         "<p class=\"card-text\">With supporting text below as a natural lead-in to additional content.</p>"+
                         "<a href=\"Home/Detail/"+value.Id+" \" class=\"btn btn-primary\">Detay</a>"+
                         "</div>"+
                         "</div>" 
 
                 })
+
             },
             error: function (xhr, status) {
                 alert("error");

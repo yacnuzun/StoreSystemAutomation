@@ -20,8 +20,7 @@ namespace WebUI.Controllers
 
         public IActionResult Detail(int id)
         {
-            ViewBag.Id= id;
-            return View();
+            return View(id);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

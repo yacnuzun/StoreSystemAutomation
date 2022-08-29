@@ -2,6 +2,7 @@
 using Entity.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace WebAPI.Controllers
 {
@@ -36,14 +37,15 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
         [HttpGet("getproductdetail")]
-        public JsonResult GetProductDetail(int id)
+        public IActionResult GetProductDetail(int id)
         {
             var result = _productService.GetProductDetails(id);
             if (!result.Success)
             {
-                return new JsonResult(result.Message);
+                return new JsonResult(false);
             }
-            return new JsonResult(result);
+            var jsonResult = JsonConvert.SerializeObject(result);
+            return new JsonResult(jsonResult);
         }
         [HttpPost("add")]
         public IActionResult Add(Product product)
