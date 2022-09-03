@@ -23,6 +23,7 @@ namespace DataAccess.Concrete.EfConcrete
                              where p.Id== id
                              select new ProductDto()
                              {
+                                 Id=p.Id,
                                  Picture = pi.ImagePath,
                                  ProductName = p.Name,
                                  Price = p.Price,

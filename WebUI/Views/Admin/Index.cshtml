@@ -6,3 +6,121 @@
 
 <h1>Index</h1>
 
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Ürün</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col">Resim</th>
+            <th scope="col">Fiyatı</th>
+        </tr>
+    </thead>
+    <tbody id="table">
+    </tbody>
+</table>
+<button class="btn btn-success" id="btnAdd">Ekle</button>
+<div id="AddDiv" style="display: none;">
+    <div class="mb-3 row">
+        <label for="txtProductName" class="col-sm-2 col-form-label">Ürün Adı</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtProductName" />
+        </div>
+    </div>
+    <br />
+    <div class="mb-3 row">
+        <label for="txtDescription" class="col-sm-2 col-form-label">Açıklama</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtDescription" />
+        </div>
+    </div>
+    <br />
+    <div class="mb-3 row">
+        <label for="fileInput" class="col-sm-2 col-form-label">Resim</label>
+        <div class="form-group">
+            <input type="file" name="file" id="fileInput" class="form-control" />
+        </div><br />
+        
+    </div>
+    <br />
+    <div class="mb-3 row">
+        <label for="txtPrice" class="col-sm-2 col-form-label">Fiyat</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtPrice" />
+        </div>
+    </div>
+    <div class="form-group text-right">
+        <input id="addBtn" type="submit" class="btn btn-success btn-sm w-5" value="Kayıt Yükle" />
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+    $.ajax({
+        url: "https://localhost:7233/api/ProductImages/getall",
+        type: "GET",
+        crossDomain: true,
+        dataType: "json",
+        success: function (response) {
+            values=JSON.parse(response);
+            console.log(values.Data);
+
+            $.each(values.Data, function (key, value) {
+                $("#table").html("<tr>"
+                    + "<td>" + value.Id + "</td>"
+                    + "<td>" + value.ProductName + "</td>"
+                    + "<td>" + value.Description + "</td>"
+                    + "<td class=\"w-25\"><img  style=\"width: 85px; height: 85px\" src=\"/Img/" + value.Picture.replace(" ", "") + " \"/></td>"
+                    + "<td>" + value.Price + "</td>"
+                    + "<td><a id=\"btnUpdate\" onclick=\"updt(" + value.Id + ")\" class=\"btn btn-warning\">Güncelle</a>"
+                    + "<a id=\"btnDelete\" onclick=\"dlt(" + value.Id + ")\" class=\"btn btn-danger\">Sil</a></td></tr>"
+    );
+            })
+        }
+    }
+    )})
+    
+    
+    $("#btnAdd").click(function () {
+        $("#AddDiv").css("display", "block");
+    }
+    )
+    $("#addBtn").click(function(){
+        var formData = new FormData();
+        formData.append("file", $("#fileInput")[0].files[0])
+        var product = {
+            Name: $("#txtProductName").val(),
+            Description: $("#txtDescription").val(),
+            Price: $("#txtPrice").val(),
+        }
+        $.ajax({
+            contentType: "application/json; charset=utf-8",
+            url: "https://localhost:7233/api/Products/add",
+            type: "post",
+            crossDomain: true,
+            data: JSON.stringify(product),
+            dataType: "json",
+            success: function (response) {
+                var res = JSON.parse(response)
+                console.log(res);
+                
+            }
+        })
+        //$.ajax({
+        //    url: "https://localhost:7233/api/ProductImages/add",
+        //    type:"POST",
+        //    crossDomain:true,
+        //    data: formData,
+        //    dataType:"json",
+        //    success:function(response){
+        //        var res=JSON.parse(response)
+        //        console.log(res);
+        //    }
+        //})
+        
+    })
+
+</script>
