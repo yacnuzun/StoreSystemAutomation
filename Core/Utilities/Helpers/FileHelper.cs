@@ -11,6 +11,8 @@ namespace Core.Utilities.Helpers
 {
     public class FileHelper
     {
+        //static string uploadPath = Path.Combine(
+        //    Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "source", "repos", "StoreSystemAutomation", "WebUI", "wwwroot", "Img");
         static string uploadPath = @"C:\Users\yacnu\source\repos\StoreSystemAutomation\WebUI\wwwroot\Img\";
 
 

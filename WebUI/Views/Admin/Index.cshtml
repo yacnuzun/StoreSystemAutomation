@@ -89,8 +89,11 @@
     }
     )
     $("#addBtn").click(function(){
-        var formData = new FormData();
-        formData.append("file", $("#fileInput")[0].files[0])
+        var productImg = {
+            ImagePath: $("#fileInput")[0].files[0],
+            ProductId:0,
+        }
+        
         var product = {
             Name: $("#txtProductName").val(),
             Description: $("#txtDescription").val(),
@@ -106,21 +109,24 @@
             success: function (response) {
                 var res = JSON.parse(response)
                 console.log(res);
-                
+                productImg.ProductId=res;
+                sendImg(productImg)
             }
         })
-        //$.ajax({
-        //    url: "https://localhost:7233/api/ProductImages/add",
-        //    type:"POST",
-        //    crossDomain:true,
-        //    data: formData,
-        //    dataType:"json",
-        //    success:function(response){
-        //        var res=JSON.parse(response)
-        //        console.log(res);
-        //    }
-        //})
-        
+        function sendImg(x){
+        $.ajax({
+                contentType: "application/json; charset=utf-8",
+                url: "https://localhost:7233/api/ProductImages/add",
+            type:"POST",
+            crossDomain:true,
+            data: JSON.stringify(x),
+            dataType:"json",
+            success:function(response){
+                var res=JSON.parse(response)
+                console.log(res);
+            }
+        })
+        }
     })
 
 </script>

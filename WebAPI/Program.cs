@@ -10,10 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IProductService,ProductManager>();
 builder.Services.AddSingleton<IProductDal,EfProductDal>();
+
 builder.Services.AddCors(options =>
-options.AddDefaultPolicy(builder =>
-builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())
-);
+{
+    options.AddPolicy(name: "MyPolicy",
+                      policy =>
+                      {
+                          policy.WithOrigins("https://localhost:7216","http://localhost:5216")
+                          .AllowCredentials()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
 
 builder.Services.AddSingleton<IProductImageDal, EfProductImageDal>();
 builder.Services.AddSingleton<IProductImageService, ProductImageManager>();
@@ -29,11 +37,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
 }
 
 app.UseHttpsRedirection();
+app.UseCors("MyPolicy");
+
 app.UseRouting();
-app.UseCors();
+
 
 app.UseAuthentication();
 

@@ -14,6 +14,10 @@
     
     $(document).ready(function(){
     $.ajax({
+            headers: {
+                'Access-Control-Allow-Origin': 'https://localhost:7216/',
+                'Content-Type': 'application/json'
+            },
             url: "https://localhost:7233/api/ProductImages/getall",
             type: "GET",
             crossDomain: true,
